@@ -1,0 +1,19 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# PyTest
+.pytest_cache
+
+# Unhelpful editors
+.vscode
+
+# Don't wanna lock a library
+uv.lock

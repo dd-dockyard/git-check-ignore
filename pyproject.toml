@@ -1,0 +1,25 @@
+[project]
+name = "git-check-ignore"
+version = "0.1.0"
+description = "A wrapper around the `git check-ignore` command"
+readme = "README.md"
+authors = [
+    { name = "Jordan Webb", email = "jordan@jordemort.dev" }
+]
+requires-python = ">=3.13"
+dependencies = []
+
+[project.scripts]
+git-check-ignore = "git_check_ignore:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+]
+
+[tool.pyright]
+reportUnusedCallResult = false
