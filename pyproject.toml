@@ -1,16 +1,28 @@
 [project]
 name = "git-check-ignore"
-version = "0.1.0"
-description = "A wrapper around the `git check-ignore` command"
+version = "1.0.0"
+description = "A Python wrapper around `git check-ignore` for working with `.gitignore` files"
 readme = "README.md"
 authors = [
-    { name = "Jordan Webb", email = "jordan@jordemort.dev" }
+    { name = "Jordan Webb", email = "jordan@dangerdevices.com" }
 ]
 requires-python = ">=3.11"
 dependencies = []
+keywords = ["git", "gitignore"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Version Control :: Git",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
 
-[project.scripts]
-git-check-ignore = "git_check_ignore:main"
+[project.urls]
+#Documentation = ""
+Repository = "https://github.com/dd-dockyard/git-check-ignore"
+Issues = "https://github.com/dd-dockyard/git-check-ignore/issues"
 
 [build-system]
 requires = ["hatchling"]
