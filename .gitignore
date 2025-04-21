@@ -12,6 +12,9 @@ wheels/
 # PyTest
 .pytest_cache
 
+# tox
+.tox
+
 # Unhelpful editors
 .vscode
 

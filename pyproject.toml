@@ -6,7 +6,7 @@ readme = "README.md"
 authors = [
     { name = "Jordan Webb", email = "jordan@jordemort.dev" }
 ]
-requires-python = ">=3.13"
+requires-python = ">=3.11"
 dependencies = []
 
 [project.scripts]
@@ -23,3 +23,12 @@ dev = [
 
 [tool.pyright]
 reportUnusedCallResult = false
+
+[tool.tox]
+requires = ["tox>=4.25"]
+env_list = ["3.11", "3.12", "3.13"]
+
+[tool.tox.env_run_base]
+description = "Run test under {base_python}"
+deps = ["pytest>=8.3.5"]
+commands = [["pytest"]]

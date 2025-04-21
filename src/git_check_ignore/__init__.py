@@ -1,36 +1,65 @@
+"""
+.. include:: ../../README.md
+"""
+
 from collections.abc import Iterable
 from pathlib import Path
-from sys import path_hooks
 from typing import NamedTuple
 
 import subprocess
 
 
 class GitCheckIgnoreError(Exception):
-    pass
+    """Base class for all unique exceptions thrown by this module"""
 
 
 class GitCheckIgnoreExitStatusError(GitCheckIgnoreError):
-    pass
+    """Thrown if `git check-ignore` exits with a status other than 0 or 1"""
 
 
 class GitCheckIgnoreOutputError(GitCheckIgnoreError):
-    pass
+    """Thrown if `git check-ignore` does not produce any output"""
 
 
 class GitCheckIgnoreMatch(NamedTuple):
+    """Information about which `.gitignore` pattern matched a pathname"""
+
     source: str
+    """The path of the `.gitignore` file containing the pattern"""
+
     linenum: int
+    """The line number of the `.gitignore` file containing the pattern"""
+
     pattern: str
+    """The pattern that matched the pathname"""
 
 
 class GitCheckIgnoreResult(NamedTuple):
+    """The result of running `git check-ignore` on a particular pathname"""
+
     pathname: str
+    """The pathname that was evaluated"""
+
     ignored: bool
+    """`True` if `git` will ignore the path; `False` otherwise."""
+
     match: GitCheckIgnoreMatch | None
+    """Information about which, if any, `.gitignore` pattern matched the pathname.
+
+    NOTE: If a pathname was matched by a negative pattern, `ignored` will be `True` but
+    `match` will still contain the matching pattern.
+    """
 
 
 def git_check_ignore(*paths: str | Path) -> Iterable[GitCheckIgnoreResult]:
+    """Pass a list of pathnames to `git check-ignore` and parse the results.
+
+    This is the fully-featured version of the API; the result will be an iterator of
+    :class:`GitCheckIgnoreResult` objects. Use this if you need to know which
+    `.gitignore` pattern or file matched a particular pathname.
+
+    :param paths: Pathnames to evaluate
+    """
     input_paths = b"\x00".join(map(lambda x: str(x).encode(), paths)) + b"\x00"
 
     command = subprocess.run(
@@ -68,22 +97,48 @@ def git_check_ignore(*paths: str | Path) -> Iterable[GitCheckIgnoreResult]:
 
 
 def ignored_pathnames(*paths: str | Path) -> Iterable[str]:
+    """Given a list of pathnames, iterate over those that `git` would ignore.
+
+    Use this function over :func:`git_check_ignore` if you only need to determine
+    which pathnames would be ignored, and you do not care which pattern is causing them
+    to be ignored.
+
+    :param paths: Paths or pathnames to evaluate
+    """
     for result in git_check_ignore(*paths):
         if result.ignored:
             yield result.pathname
 
 
 def ignored_paths(*paths: str | Path) -> Iterable[Path]:
-    for result in ignored_pathnames(*paths):
-        yield Path(result)
+    """As :func:`ignored_pathnames`, but returns :class:`pathlib.Path` objects.
+
+    Use this over :func:`ignored_pathnames` if you prefer an object-oriented
+    approach to paths.
+
+    :param paths: Paths or pathnames to evaluate
+    """
+    return map(Path, ignored_pathnames(*paths))
 
 
 def not_ignored_pathnames(*paths: str | Path) -> Iterable[str]:
+    """Given a list of pathnames, iterate over those that `git` *WOULD NOT* ignore.
+
+    The inverse of :func:`ignored_pathnames`
+
+    :param paths: Paths or pathnames to evaluate
+    """
     for result in git_check_ignore(*paths):
         if not result.ignored:
             yield result.pathname
 
 
 def not_ignored_paths(*paths: str | Path) -> Iterable[Path]:
-    for result in not_ignored_pathnames(*paths):
-        yield Path(result)
+    """As :func:`not_ignored_pathnames`, but returns :class:`pathlib.Path` objects.
+
+    Use this over :func:`not_ignored_pathnames` if you prefer an object-oriented
+    approach to paths.
+
+    :param paths: Paths or pathnames to evaluate
+    """
+    return map(Path, not_ignored_pathnames(*paths))
