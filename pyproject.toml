@@ -1,6 +1,6 @@
 [project]
 name = "git-check-ignore"
-version = "1.0.0"
+dynamic = ["version"]
 description = "A Python wrapper around `git` to check filenames against `.gitignore` files"
 readme = "README.md"
 authors = [
@@ -27,8 +27,11 @@ Repository = "https://github.com/dd-dockyard/git-check-ignore"
 Issues = "https://github.com/dd-dockyard/git-check-ignore/issues"
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
 
 [dependency-groups]
 dev = ["pytest>=8.3.5"]
