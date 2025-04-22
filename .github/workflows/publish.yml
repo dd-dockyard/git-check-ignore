@@ -1,4 +1,4 @@
-name: Publish to PyPI
+name: Test, build, and publish
 
 on:
     push:
@@ -23,10 +23,6 @@ jobs:
 
             - name: Install the latest version of uv
               uses: astral-sh/setup-uv@v3
-              with:
-                enable-cache: true
-                cache-dependency-glob: "pyproject.toml"
-                github-token: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Build wheel
               run: uv build
