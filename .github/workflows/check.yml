@@ -27,10 +27,6 @@ jobs:
 
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@v3
-        with:
-          enable-cache: true
-          cache-dependency-glob: "pyproject.toml"
-          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add .local/bin to Windows PATH
         if: runner.os == 'Windows'
