@@ -8,6 +8,10 @@ It can be used to determine if a particular pathname would be ignored by a repos
 disadvantage that you must have `git` installed and available on your PATH, but has the
 advantage that this module's results will always agree with `git`'s.
 
+## Documentation
+
+Documentation can be found at <https://dd-dockyard.github.io/git-check-ignore/>
+
 ## Example Usage
 
 The `ignored_pathnames` and `not_ignored_pathnames` functions are the simplest way to use this module.
