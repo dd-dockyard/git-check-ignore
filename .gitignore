@@ -9,8 +9,14 @@ wheels/
 # Virtual environments
 .venv
 
+# mypy
+.mypy_cache
+
 # PyTest
 .pytest_cache
+
+# ruff
+.ruff_cache
 
 # tox
 .tox
