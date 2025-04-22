@@ -16,6 +16,11 @@ jobs:
         needs: [check]
 
         steps:
+            - uses: actions/checkout@v4
+              with:
+                fetch-depth: 0
+                persist-credentials: false
+
             - name: Install the latest version of uv
               uses: astral-sh/setup-uv@v3
               with:
