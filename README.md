@@ -8,6 +8,8 @@ It can be used to determine if a particular pathname would be ignored by a repos
 disadvantage that you must have `git` installed and available on your PATH, but has the
 advantage that this module's results will always agree with `git`'s.
 
+[![Test, build, and publish](https://github.com/dd-dockyard/git-check-ignore/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/dd-dockyard/git-check-ignore/actions/workflows/publish.yml)
+
 ## Installation
 
 `git-check-ignore` can be [installed from PyPI](https://pypi.org/project/git-check-ignore/):
