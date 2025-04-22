@@ -15,6 +15,9 @@ wheels/
 # PyTest
 .pytest_cache
 
+# ruff
+.ruff_cache
+
 # tox
 .tox
 
