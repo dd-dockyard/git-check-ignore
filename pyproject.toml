@@ -33,6 +33,9 @@ build-backend = "hatchling.build"
 [tool.hatch.version]
 source = "vcs"
 
+[tool.hatch.version.raw-options]
+local_scheme = "no-local-version"
+
 [dependency-groups]
 dev = ["pytest>=8.3.5"]
 lint = ["ruff>=0.11.6"]
