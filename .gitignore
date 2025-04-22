@@ -15,6 +15,9 @@ wheels/
 # tox
 .tox
 
+# Generated documentation
+docs
+
 # Unhelpful editors
 .vscode
 
