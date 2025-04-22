@@ -3,11 +3,8 @@ name: Build documentation
 # build the documentation whenever there are new commits on main
 on:
   push:
-    branches:
-      - main
-    # Alternative: only build for tags.
-    # tags:
-    #   - '*'
+    tags:
+      - "v*"
   workflow_dispatch:
 
 # security: restrict permissions for CI jobs.
