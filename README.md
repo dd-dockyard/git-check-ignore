@@ -48,3 +48,7 @@ for r in git_check_ignore("README.md", "foo.py", "bar.py"):
     if r.match:
         print(f"matched {r.match.pattern} at line {r.match.linenum} of {r.match.source}")
 ```
+
+## License
+
+This software is provided under the terms of the [AGPL 3.0](https://www.gnu.org/licenses/agpl-3.0.txt) license.

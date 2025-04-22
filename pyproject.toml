@@ -1,7 +1,7 @@
 [project]
 name = "git-check-ignore"
 version = "1.0.0"
-description = "A Python wrapper around `git check-ignore` for working with `.gitignore` files"
+description = "A Python wrapper around `git` to check filenames against `.gitignore` files"
 readme = "README.md"
 authors = [
     { name = "Jordan Webb", email = "jordan@dangerdevices.com" }
@@ -9,9 +9,11 @@ authors = [
 requires-python = ">=3.11"
 dependencies = []
 keywords = ["git", "gitignore"]
+license = "AGPL-3.0-only"
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
+  "License :: OSI Approved :: GNU Affero General Public License v3",
   "Topic :: Software Development :: Version Control :: Git",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.11",
