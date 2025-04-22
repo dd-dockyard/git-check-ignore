@@ -46,7 +46,7 @@ class GitCheckIgnoreResult(NamedTuple):
     match: GitCheckIgnoreMatch | None
     """Information about which, if any, `.gitignore` pattern matched the pathname.
 
-    NOTE: If a pathname was matched by a negative pattern, `ignored` will be `True` but
+    NOTE: If a pathname was matched by a negative pattern, `ignored` will be `False` but
     `match` will still contain the matching pattern.
     """
 
@@ -58,7 +58,20 @@ def git_check_ignore(*paths: str | Path) -> Iterable[GitCheckIgnoreResult]:
     :class:`GitCheckIgnoreResult` objects. Use this if you need to know which
     `.gitignore` pattern or file matched a particular pathname.
 
+    This runs `git` in the current working directory. If your Git repository is
+    somewhere else, it is your responsibility to point Git at it somehow, either by
+    changing the working directory with [os.chdir](https://docs.python.org/3.13/library/os.html#os.chdir)
+    or perhaps by setting some [environment variables](https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables).
+
+    Passing pathnames that are not contained within a repository will likely lead to
+    a `GitCheckIgnoreExitStatusError`.
+
     :param paths: Pathnames to evaluate
+    :raises GitCheckIgnoreExitStatusError: If `git check-ignore` exits with a status other than 0 or 1
+    :raises GitCheckIgnoreOutputError: If `git check-ignore` did not produce any output
+    :raises KeyError: If `git check-ignore` output is malformed
+    :raises ValueError: If `git check-ignore` output is malformed
+    :raises UnicodeDecodeError: If `git check-ignore` output is malformed
     """
     input_paths = b"\x00".join(map(lambda x: str(x).encode(), paths)) + b"\x00"
 
@@ -103,6 +116,9 @@ def ignored_pathnames(*paths: str | Path) -> Iterable[str]:
     which pathnames would be ignored, and you do not care which pattern is causing them
     to be ignored.
 
+    This function is implemented on top of :func:`git_check_ignore`; please see the
+    documentation for that function for additional usage notes and caveats.
+
     :param paths: Paths or pathnames to evaluate
     """
     for result in git_check_ignore(*paths):
@@ -116,6 +132,9 @@ def ignored_paths(*paths: str | Path) -> Iterable[Path]:
     Use this over :func:`ignored_pathnames` if you prefer an object-oriented
     approach to paths.
 
+    This function is implemented on top of :func:`git_check_ignore`; please see the
+    documentation for that function for additional usage notes and caveats.
+
     :param paths: Paths or pathnames to evaluate
     """
     return map(Path, ignored_pathnames(*paths))
@@ -125,6 +144,9 @@ def not_ignored_pathnames(*paths: str | Path) -> Iterable[str]:
     """Given a list of pathnames, iterate over those that `git` *WOULD NOT* ignore.
 
     The inverse of :func:`ignored_pathnames`
+
+    This function is implemented on top of :func:`git_check_ignore`; please see the
+    documentation for that function for additional usage notes and caveats.
 
     :param paths: Paths or pathnames to evaluate
     """
@@ -138,6 +160,9 @@ def not_ignored_paths(*paths: str | Path) -> Iterable[Path]:
 
     Use this over :func:`not_ignored_pathnames` if you prefer an object-oriented
     approach to paths.
+
+    This function is implemented on top of :func:`git_check_ignore`; please see the
+    documentation for that function for additional usage notes and caveats.
 
     :param paths: Paths or pathnames to evaluate
     """
