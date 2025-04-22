@@ -22,7 +22,7 @@ classifiers = [
 ]
 
 [project.urls]
-#Documentation = ""
+Documentation = "https://dd-dockyard.github.io/git-check-ignore/"
 Repository = "https://github.com/dd-dockyard/git-check-ignore"
 Issues = "https://github.com/dd-dockyard/git-check-ignore/issues"
 
