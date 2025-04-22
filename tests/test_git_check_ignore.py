@@ -1,4 +1,3 @@
-from re import sub
 import git_check_ignore
 import pytest
 import subprocess
